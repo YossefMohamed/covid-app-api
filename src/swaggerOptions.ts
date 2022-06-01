@@ -357,7 +357,7 @@ const swaggerOptions = {
               
             }, {
               in : "formData",
-              name: "heartProblem",
+              name: "fever",
               type : "boolean",
               description: "heartProblem if exist",
               required :true

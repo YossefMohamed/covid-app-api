@@ -34,14 +34,12 @@ router.use("/users", userRoutes);
 router.use("/samples", sampleRoutes);
 
 app.use("/api/v1", router);
-app.use((err:any, req:any, res:any, next:any) => {
+app.use((err: any, req: any, res: any, next: any) => {
   res.status(500).json({
     status: "failed",
     message: err.message,
-    
-    })
-  }
-    );
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
