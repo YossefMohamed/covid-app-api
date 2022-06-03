@@ -19,7 +19,9 @@ export const addSample = asyncHandler(async (req: any, res: any, next: any) => {
       public_id: `AudioUploads/${fName}`,
       overwrite: true,
     });
-    const deployedLink: string = "http://" + process.env.DEPLOYED_LINK;
+    const deployedLink: string =
+      "http://" + process.env.DEPLOYED_LINK + "/sample";
+    console.log(deployedLink);
     var form = new formData();
     form.append("fever", fever);
     form.append("breathProblem", breathProblem);
@@ -45,6 +47,7 @@ export const addSample = asyncHandler(async (req: any, res: any, next: any) => {
       data: sample,
     });
   } catch (error: any) {
+    console.log(error.message);
     next(new Error(error));
   }
 });
