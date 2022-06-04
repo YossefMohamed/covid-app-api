@@ -21,7 +21,6 @@ export const addSample = asyncHandler(async (req: any, res: any, next: any) => {
     });
     const deployedLink: string =
       "http://" + process.env.DEPLOYED_LINK + "/sample";
-    console.log(deployedLink);
     var form = new formData();
     form.append("fever", fever);
     form.append("breathProblem", breathProblem);
@@ -33,7 +32,6 @@ export const addSample = asyncHandler(async (req: any, res: any, next: any) => {
       data: form,
       headers: { "Content-Type": "multipart/form-data" },
     });
-    console.log(data.data.covid);
     const sample = await Sample.create({
       link: sampleData.secure_url,
       covid: data.data.covid,
@@ -47,7 +45,6 @@ export const addSample = asyncHandler(async (req: any, res: any, next: any) => {
       data: sample,
     });
   } catch (error: any) {
-    console.log(error.message);
     next(new Error(error));
   }
 });
@@ -70,7 +67,6 @@ export const getSamples = asyncHandler(
 
 export const getSample = asyncHandler(async (req: any, res: any, next: any) => {
   try {
-    console.log(req.params.id);
     const sample = await Sample.findById(req.params.id);
     if (!sample) {
       res.status(404).json({
