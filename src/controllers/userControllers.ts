@@ -68,13 +68,13 @@ export const messageSender = asyncHandler(
         });
         return;
       }
-      // client.messages
-      //   .create({
-      //     body: `Your Code Is ${verCode}\n STAY SAFE :)`,
-      //     messagingServiceSid: "MGcbb30f95b11a5d112df6ac104ca16f8f",
-      //     to: `+2${user.number}`,
-      //   })
-      //   .then((message) => console.log(message.sid));
+      client.messages
+        .create({
+          body: `Your Code Is ${verCode}\n STAY SAFE :)`,
+          messagingServiceSid: "MGcbb30f95b11a5d112df6ac104ca16f8f",
+          to: `+2${user.number}`,
+        })
+        .then((message) => console.log(message.sid));
       user.code = `${verCode}`;
       await user.save();
 
