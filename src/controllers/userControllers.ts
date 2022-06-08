@@ -70,11 +70,13 @@ export const messageSender = asyncHandler(
       }
       client.messages
         .create({
-          body: `Your Code Is ${verCode}\n STAY SAFE :)`,
           messagingServiceSid: "MGcbb30f95b11a5d112df6ac104ca16f8f",
           to: `+2${user.number}`,
+          body: `Your Code Is ${verCode}\n STAY SAFE :)`,
         })
-        .then((message) => console.log(message.sid));
+        .then((message) => console.log("Message SENT!!"))
+        .catch((err) => console.log(err));
+
       user.code = `${verCode}`;
       await user.save();
 
