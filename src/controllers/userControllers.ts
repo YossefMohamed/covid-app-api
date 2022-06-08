@@ -50,7 +50,7 @@ export const signup = asyncHandler(async (req: Request, res: Response) => {
 export const messageSender = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const verCode = Math.floor(1000 + Math.random() * 9000);
+      const verCode = "784585";
 
       if (!mongoose.isValidObjectId(req.query.user)) {
         res.status(404).json({
