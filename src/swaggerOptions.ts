@@ -509,7 +509,8 @@ const swaggerOptions = {
             },
           },
         },
-
+      },
+      "/api/v1/users/delete": {
         delete: {
           tags: ["Users"],
           summary: "delete a user",
@@ -598,6 +599,7 @@ const swaggerOptions = {
             },
           },
         },
+      }
       },
 
       //samples
