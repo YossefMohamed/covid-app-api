@@ -143,3 +143,90 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
     data: { user, token },
   });
 });
+
+export const updateUser = asyncHandler(async (req: Request, res: Response) => {
+  const { name, lastName, email } = req.body;
+  if (!mongoose.isValidObjectId(req.query.user)) {
+    res.status(404).json({
+      status: "failed",
+      message: "Invalid ID!",
+    });
+    return;
+  }
+  const user: any = await User.findById(req.query.user);
+
+  if (!user) {
+    res.status(404).json({
+      status: "failed",
+      message: "User Not Found !",
+    });
+    return;
+  }
+  user.name = name;
+  user.lastName = lastName;
+  user.email = email;
+  await user.save();
+  res.status(200).json({
+    status: "ok",
+    data: { user },
+  });
+});
+
+export const resetPassword = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { password, confirmPassword } = req.body;
+    if (!mongoose.isValidObjectId(req.query.user)) {
+      res.status(404).json({
+        status: "failed",
+        message: "Invalid ID!",
+      });
+      return;
+    }
+    const user: any = await User.findById(req.query.user);
+
+    if (!user) {
+      res.status(404).json({
+        status: "failed",
+        message: "User Not Found !",
+      });
+      return;
+    }
+    if (password !== confirmPassword) {
+      res.status(400).json({
+        status: "failed",
+        message: "password and confirm password must be same",
+      });
+      return;
+    }
+    user.password = password;
+    await user.save();
+    res.status(200).json({
+      status: "ok",
+      data: { user },
+    });
+  }
+);
+
+export const deleteUser = asyncHandler(async (req: Request, res: Response) => {
+  if (!mongoose.isValidObjectId(req.query.user)) {
+    res.status(404).json({
+      status: "failed",
+      message: "Invalid ID!",
+    });
+    return;
+  }
+  const user: any = await User.findById(req.query.user);
+
+  if (!user) {
+    res.status(404).json({
+      status: "failed",
+      message: "User Not Found !",
+    });
+    return;
+  }
+  await user.remove();
+  res.status(200).json({
+    status: "ok",
+    data: { user },
+  });
+});

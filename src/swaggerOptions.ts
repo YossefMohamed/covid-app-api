@@ -57,8 +57,7 @@ const swaggerOptions = {
                   lastName: {
                     type: "string",
                   },
-                  _id : 
-                  {
+                  _id: {
                     type: "string",
                   },
                   password: {
@@ -131,8 +130,7 @@ const swaggerOptions = {
                   name: {
                     type: "string",
                   },
-                  _id : 
-                  {
+                  _id: {
                     type: "string",
                   },
                   lastName: {
@@ -169,7 +167,7 @@ const swaggerOptions = {
               discrition: "failed",
               schema: {
                 properties: {
-                   message: {
+                  message: {
                     type: "string",
                   },
                 },
@@ -205,8 +203,7 @@ const swaggerOptions = {
                   name: {
                     type: "string",
                   },
-                  _id : 
-                  {
+                  _id: {
                     type: "string",
                   },
                   lastName: {
@@ -243,7 +240,7 @@ const swaggerOptions = {
               discrition: "failed",
               schema: {
                 properties: {
-                 message: {
+                  message: {
                     type: "string",
                   },
                 },
@@ -290,8 +287,7 @@ const swaggerOptions = {
                   name: {
                     type: "string",
                   },
-                  _id : 
-                  {
+                  _id: {
                     type: "string",
                   },
                   lastName: {
@@ -328,7 +324,7 @@ const swaggerOptions = {
               discrition: "failed",
               schema: {
                 properties: {
-                 message: {
+                  message: {
                     type: "string",
                   },
                 },
@@ -337,10 +333,272 @@ const swaggerOptions = {
           },
         },
       },
-      
+      "/api/v1/users/passwordreset": {
+        post: {
+          tags: ["Users"],
+          summary: "reset user's password",
+          parameters: [
+            {
+              in: "query",
+              name: "user",
+              description: "ID of the user",
+              schema: {
+                properties: {
+                  user: {
+                    type: "string",
+                  },
+                },
+              },
+            },
+            {
+              in: "body",
+              name: "body",
+              description: "password and password confirmation",
+              schema: {
+                properties: {
+                  password: {
+                    type: "string",
+                  },
+                  confirmPassword: {
+                    type: "string",
+                  },
+                },
+              },
+            },
+          ],
+          responses: {
+            "200": {
+              description: "ok",
+              schema: {
+                properties: {
+                  name: {
+                    type: "string",
+                  },
+                  _id: {
+                    type: "string",
+                  },
+                  lastName: {
+                    type: "string",
+                  },
+                  email: {
+                    type: "string",
+                  },
+                  number: {
+                    type: "string",
+                  },
+                  verified: {
+                    type: "boolean",
+                  },
+                  isAdmin: {
+                    type: "boolean",
+                  },
+                  password: {
+                    type: "string",
+                  },
+                  code: {
+                    type: "string",
+                  },
+                  gender: {
+                    type: "string",
+                  },
+                  token: {
+                    type: "string",
+                  },
+                },
+              },
+            },
+            "404": {
+              discrition: "failed",
+              schema: {
+                properties: {
+                  message: {
+                    type: "string",
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      "/api/v1/users/update": {
+        patch: {
+          tags: ["Users"],
+          summary: "update user's data",
+          parameters: [
+            {
+              in: "query",
+              name: "user",
+              description: "ID of the user",
+              schema: {
+                properties: {
+                  user: {
+                    type: "string",
+                  },
+                },
+              },
+            },
+            {
+              in: "body",
+              name: "body",
+              description: "user's new data",
+              schema: {
+                properties: {
+                  name: {
+                    type: "string",
+                  },
+                  lastName: {
+                    type: "string",
+                  },
+                  email: {
+                    type: "string",
+                  },
+                },
+              },
+            },
+          ],
+          responses: {
+            "200": {
+              description: "ok",
+              schema: {
+                properties: {
+                  name: {
+                    type: "string",
+                  },
+                  _id: {
+                    type: "string",
+                  },
+                  lastName: {
+                    type: "string",
+                  },
+                  email: {
+                    type: "string",
+                  },
+                  number: {
+                    type: "string",
+                  },
+                  verified: {
+                    type: "boolean",
+                  },
+                  isAdmin: {
+                    type: "boolean",
+                  },
+                  password: {
+                    type: "string",
+                  },
+                  code: {
+                    type: "string",
+                  },
+                  gender: {
+                    type: "string",
+                  },
+                  token: {
+                    type: "string",
+                  },
+                },
+              },
+            },
+            "404": {
+              discrition: "failed",
+              schema: {
+                properties: {
+                  message: {
+                    type: "string",
+                  },
+                },
+              },
+            },
+          },
+        },
 
-
-
+        delete: {
+          tags: ["Users"],
+          summary: "delete a user",
+          parameters: [
+            {
+              in: "query",
+              name: "user",
+              description: "ID of the user",
+              schema: {
+                properties: {
+                  user: {
+                    type: "string",
+                  },
+                },
+              },
+            },
+            {
+              in: "body",
+              name: "body",
+              description: "user's new data",
+              schema: {
+                properties: {
+                  name: {
+                    type: "string",
+                  },
+                  lastName: {
+                    type: "string",
+                  },
+                  email: {
+                    type: "string",
+                  },
+                },
+              },
+            },
+          ],
+          responses: {
+            "200": {
+              description: "ok",
+              schema: {
+                properties: {
+                  name: {
+                    type: "string",
+                  },
+                  _id: {
+                    type: "string",
+                  },
+                  lastName: {
+                    type: "string",
+                  },
+                  email: {
+                    type: "string",
+                  },
+                  number: {
+                    type: "string",
+                  },
+                  verified: {
+                    type: "boolean",
+                  },
+                  isAdmin: {
+                    type: "boolean",
+                  },
+                  password: {
+                    type: "string",
+                  },
+                  code: {
+                    type: "string",
+                  },
+                  gender: {
+                    type: "string",
+                  },
+                  token: {
+                    type: "string",
+                  },
+                },
+              },
+            },
+            "404": {
+              discrition: "failed",
+              schema: {
+                properties: {
+                  message: {
+                    type: "string",
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
 
       //samples
       "/api/v1/samples/": {
@@ -349,45 +607,46 @@ const swaggerOptions = {
           summary: "Add A New Sample",
           parameters: [
             {
-              in : "formData",
+              in: "formData",
               name: "sample",
-              type : "file",
+              type: "file",
               description: "Sample File To Be Uploaded",
-              required :true
-              
-            }, {
-              in : "formData",
+              required: true,
+            },
+            {
+              in: "formData",
               name: "fever",
-              type : "boolean",
+              type: "boolean",
               description: "heartProblem if exist",
-              required :true
-
-            }, {
-              in : "formData",
+              required: true,
+            },
+            {
+              in: "formData",
               name: "breathProblem",
-              type : "boolean",
+              type: "boolean",
               description: "breathProblem if exist",
-              required :true
-            }, {
-              in : "header",
+              required: true,
+            },
+            {
+              in: "header",
               name: "Authorization",
-              type : "string",
-              description: "Authorization Token : 'Bearer TOKEN'", 
+              type: "string",
+              description: "Authorization Token : 'Bearer TOKEN'",
             },
           ],
           responses: {
             "201": {
               description: "ok",
               schema: {
-                type : "array",
+                type: "array",
 
                 items: {
-                  type  : "object",
+                  type: "object",
                   properties: {
                     link: {
                       type: "string",
                     },
-          
+
                     user: {
                       type: "string",
                     },
@@ -397,7 +656,7 @@ const swaggerOptions = {
                     _id: {
                       type: "string",
                     },
-                  }
+                  },
                 },
               },
             },
@@ -413,14 +672,14 @@ const swaggerOptions = {
             },
           },
         },
-        get : {
+        get: {
           tags: ["Samples"],
           summary: "Get All Samples",
           parameters: [
             {
-              in : "header",
+              in: "header",
               name: "Authorization",
-              type : "string",
+              type: "string",
               description: "Authorization Token : 'Bearer TOKEN'",
             },
           ],
@@ -428,10 +687,10 @@ const swaggerOptions = {
             "200": {
               description: "Found Samples",
               schema: {
-                type : "array",
-                items :{
-                  type : "object",
-                  properties : {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
                     link: {
                       type: "string",
                     },
@@ -444,34 +703,35 @@ const swaggerOptions = {
                     _id: {
                       type: "string",
                     },
-                  }}
-                }
-            },"401": {
+                  },
+                },
+              },
+            },
+            "401": {
               description: "User Not Authorized",
-            },"404": {
+            },
+            "404": {
               description: "Sample Not Found",
             },
-        
-          }
-
-        }
+          },
+        },
       },
-      
+
       "/api/v1/samples/:id": {
-        get : {
+        get: {
           tags: ["Samples"],
           summary: "Get A Sample",
           parameters: [
             {
-              in : "header",
+              in: "header",
               name: "Authorization",
-              type : "string",
+              type: "string",
               description: "Authorization Token : 'Bearer TOKEN'",
             },
             {
-              in : "path",
+              in: "path",
               name: "id",
-              type : "string",
+              type: "string",
               description: "Sample ID",
             },
           ],
@@ -479,15 +739,15 @@ const swaggerOptions = {
             "200": {
               description: "ok",
               schema: {
-                type : "array",
+                type: "array",
 
                 items: {
-                  type  : "object",
+                  type: "object",
                   properties: {
                     link: {
                       type: "string",
                     },
-          
+
                     user: {
                       type: "string",
                     },
@@ -497,7 +757,7 @@ const swaggerOptions = {
                     _id: {
                       type: "string",
                     },
-                  }
+                  },
                 },
               },
             },
@@ -522,76 +782,74 @@ const swaggerOptions = {
               },
             },
           },
-      },
-      delete : {
-        tags: ["Samples"],
-        summary: "Delete A Sample",
-        parameters: [
-          {
-            in : "header",
-            name: "Authorization",
-            type : "string",
-            description: "Authorization Token : 'Bearer TOKEN'",
-          },
-          {
-            in : "path",
-            name: "id",
-            type : "string",
-            description: "Sample ID",
-          },
-        ],
-        responses: {
-          "202": {
-            description: "ok",
-            schema: {
-              type : "array",
-
-              items: {
-                type  : "object",
-                properties: {
-                  link: {
-                    type: "string",
-                  },
-        
-                  user: {
-                    type: "string",
-                  },
-                  covid: {
-                    type: "string",
-                  },
-                  _id: {
-                    type: "string",
-                  },
-                }
-              },
+        },
+        delete: {
+          tags: ["Samples"],
+          summary: "Delete A Sample",
+          parameters: [
+            {
+              in: "header",
+              name: "Authorization",
+              type: "string",
+              description: "Authorization Token : 'Bearer TOKEN'",
             },
-          },
-          "404": {
-            discrition: "Sample Not Found",
-            schema: {
-              properties: {
-                message: {
-                  type: "Sample Not Found",
+            {
+              in: "path",
+              name: "id",
+              type: "string",
+              description: "Sample ID",
+            },
+          ],
+          responses: {
+            "202": {
+              description: "ok",
+              schema: {
+                type: "array",
+
+                items: {
+                  type: "object",
+                  properties: {
+                    link: {
+                      type: "string",
+                    },
+
+                    user: {
+                      type: "string",
+                    },
+                    covid: {
+                      type: "string",
+                    },
+                    _id: {
+                      type: "string",
+                    },
+                  },
                 },
               },
             },
-          },
-          "401": {
-            discrition: "User Not Authorized",
-            schema: {
-              properties: {
-                message: {
-                  type: "User Not Authorized",
+            "404": {
+              discrition: "Sample Not Found",
+              schema: {
+                properties: {
+                  message: {
+                    type: "Sample Not Found",
+                  },
+                },
+              },
+            },
+            "401": {
+              discrition: "User Not Authorized",
+              schema: {
+                properties: {
+                  message: {
+                    type: "User Not Authorized",
+                  },
                 },
               },
             },
           },
         },
-    }
-
-      }
-    }
-     ,
+      },
+    },
     definitions: {
       User: {
         properties: {
@@ -623,29 +881,27 @@ const swaggerOptions = {
           gender: {
             type: "string",
           },
-          _id : 
-          {
+          _id: {
             type: "string",
           },
         },
       },
-      Sample : {
+      Sample: {
         properties: {
-          link : {
+          link: {
             type: "string",
           },
-          user : {
+          user: {
             type: "string",
           },
-          covid:{
+          covid: {
             type: "boolean",
           },
-          _id : 
-          {
+          _id: {
             type: "string",
           },
-        }
-      }
+        },
+      },
     },
   },
   apis: ["index.ts"],
