@@ -599,7 +599,6 @@ const swaggerOptions = {
             },
           },
         },
-      }
       },
 
       //samples
