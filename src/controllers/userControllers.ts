@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import User from "../models/userModel";
 import asyncHandler from "express-async-handler";
 import { signIn } from "../utiles/authGuard";
+import Vonage from '@vonage/server-sdk'
+
 const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_TOKEN);
 
 export const signup = asyncHandler(async (req: Request, res: Response) => {
@@ -68,15 +70,43 @@ export const messageSender = asyncHandler(
         });
         return;
       }
-      client.messages
-        .create({
-          messagingServiceSid: "MGcbb30f95b11a5d112df6ac104ca16f8f",
-          to: `+2${user.number}`,
-          body: `Your Code Is ${verCode}\n STAY SAFE :)`,
-        })
-        .then((message) => console.log("Message SENT!!"))
-        .catch((err) => console.log(err));
 
+      //       const from = "Vonage APIs"
+      // const to = "201151784019"
+      // const text = 'A text message sent using the Vonage SMS API'
+
+      // vonage.message.sendSms(from, to, text, (err, responseData) => {
+      //     if (err) {
+      //         console.log(err);
+      //     } else {
+      //         if(responseData.messages[0]['status'] === "0") {
+      //             console.log("Message sent successfully.");
+      //         } else {
+      //             console.log(`Message failed with error: ${responseData.messages[0]['error-text']}`);
+      //         }
+      //     }
+      // })
+      const vonage = new Vonage({
+        apiKey: "df4433b1",
+        apiSecret: "JgpI6EVvms6yarBY",
+      });
+      const from = "Vonage APIs";
+      const to = `2${user.number}`;
+      const text = `Your Code Is ${verCode}\n STAY SAFE :)`;
+
+      vonage.message.sendSms(from, to, text, (err, responseData) => {
+        if (err) {
+          console.log(err);
+        } else {
+          if (responseData.messages[0]["status"] === "0") {
+            console.log("Message sent successfully.");
+          } else {
+            console.log(
+              `Message failed with error: ${responseData.messages[0]["error-text"]}`
+            );
+          }
+        }
+      });
       user.code = `${verCode}`;
       await user.save();
 
