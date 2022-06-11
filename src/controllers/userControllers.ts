@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import User from "../models/userModel";
 import asyncHandler from "express-async-handler";
 import { signIn } from "../utiles/authGuard";
-import Vonage from '@vonage/server-sdk'
+import Vonage from "@vonage/server-sdk";
 
 const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_TOKEN);
 
@@ -94,19 +94,25 @@ export const messageSender = asyncHandler(
       const to = `2${user.number}`;
       const text = `Your Code Is ${verCode}\n STAY SAFE :)`;
 
-      vonage.message.sendSms(from, to, text, (err, responseData) => {
-        if (err) {
-          console.log(err);
-        } else {
-          if (responseData.messages[0]["status"] === "0") {
-            console.log("Message sent successfully.");
+      vonage.message.sendSms(
+        from,
+        to,
+        text,
+        (err: any, responseData: any) => {
+          if (err) {
+            console.log(err);
           } else {
-            console.log(
-              `Message failed with error: ${responseData.messages[0]["error-text"]}`
-            );
+            if (responseData.messages[0]["status"] === "0") {
+              console.log("Message sent successfully.");
+            } else {
+              console.log(
+                `Message failed with error: ${responseData.messages[0]["error-text"]}`
+              );
+            }
           }
-        }
-      });
+        },
+        () => {}
+      );
       user.code = `${verCode}`;
       await user.save();
 
