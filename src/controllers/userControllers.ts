@@ -94,25 +94,7 @@ export const messageSender = asyncHandler(
       const to = `2${user.number}`;
       const text = `Your Code Is ${verCode}\n STAY SAFE :)`;
 
-      vonage.message.sendSms(
-        from,
-        to,
-        text,
-        (err: any, responseData: any) => {
-          if (err) {
-            console.log(err);
-          } else {
-            if (responseData.messages[0]["status"] === "0") {
-              console.log("Message sent successfully.");
-            } else {
-              console.log(
-                `Message failed with error: ${responseData.messages[0]["error-text"]}`
-              );
-            }
-          }
-        },
-        () => {}
-      );
+      vonage.message.sendSms(from, to, text, {}, () => {});
       user.code = `${verCode}`;
       await user.save();
 
