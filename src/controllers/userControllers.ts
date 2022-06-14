@@ -150,7 +150,7 @@ export const verfiyNumber = asyncHandler(
       });
       return;
     }
-    res.status(200).json({
+    res.status(400).json({
       status: "failed",
       message: "Code Is Not Correct",
     });
