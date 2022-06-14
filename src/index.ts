@@ -32,7 +32,9 @@ const port = process.env.PORT || 3000;
 database();
 router.use("/users", userRoutes);
 router.use("/samples", sampleRoutes);
-
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
 app.use("/api/v1", router);
 app.use((err: any, req: any, res: any, next: any) => {
   res.status(500).json({

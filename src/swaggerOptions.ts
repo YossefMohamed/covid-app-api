@@ -600,8 +600,6 @@ const swaggerOptions = {
           },
         },
       },
-
-      //samples
       "/api/v1/samples/": {
         post: {
           tags: ["Samples"],
@@ -717,7 +715,6 @@ const swaggerOptions = {
           },
         },
       },
-
       "/api/v1/samples/:id": {
         get: {
           tags: ["Samples"],
