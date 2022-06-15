@@ -88,8 +88,8 @@ export const messageSender = asyncHandler(
       // })
 
       const vonage = new Vonage({
-        apiKey: "df4433b1",
-        apiSecret: "JgpI6EVvms6yarBY",
+        apiKey: "6634bc4e",
+        apiSecret: "WAM92kRle91tUoVd",
       });
       const from = "Vonage APIs";
       const to = `2${user.number}`;
