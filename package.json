@@ -2,7 +2,7 @@
   "name": "covid-app-api",
   "version": "1.0.0",
   "engines": {
-    "node": "17.6.0"
+    "node": "16.13.2"
   },
   "description": "",
   "main": "index.js",
