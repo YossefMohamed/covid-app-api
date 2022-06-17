@@ -89,6 +89,7 @@ export const addToCustomDataset = asyncHandler(async (req: any, res: any, next: 
 
 export const getAllSamplesInCustomDataset = asyncHandler(async (req: any, res: any, next: any) => {
   try {
+    if(req.user.isAdmin === false) throw new Error("You Are Not Authorized To Access This Page")
     const samples = await Sample.find({tested : true });
     res.status(200).json({
       status: "ok",
