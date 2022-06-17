@@ -19,7 +19,8 @@ export interface UserInterface extends Document {
   matchPassword: (enteredPassword: string) => boolean;
 }
 
-const userSchema: Schema<UserInterface> = new mongoose.Schema<UserInterface>(
+const userSchema: Schema<UserInterface> = 
+  new mongoose.Schema<UserInterface>(
   {
     verified: {
       type: Boolean,
