@@ -90,6 +90,8 @@ exports.addToCustomDataset = (0, express_async_handler_1.default)((req, res, nex
 }));
 exports.getAllSamplesInCustomDataset = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        if (req.user.isAdmin === false)
+            throw new Error("You Are Not Authorized To Access This Page");
         const samples = yield sampleModel_1.default.find({ tested: true });
         res.status(200).json({
             status: "ok",

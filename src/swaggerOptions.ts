@@ -803,7 +803,7 @@ const swaggerOptions = {
         },
         get: {
           tags: ["Samples"],
-          summary: "Get All Samples from Our Custom Dataset",
+          summary: "Get All Samples from Our Custom Dataset For ADMIN only",
           responses: {
             "200": {
               description: "Found Samples",
@@ -830,6 +830,9 @@ const swaggerOptions = {
             },
             "404": {
               description: "Sample Not Found",
+            },
+            "401": {
+              description: "Not Authorized",
             },
           },
         },
@@ -1010,6 +1013,9 @@ const swaggerOptions = {
             type: "string",
           },
           user: {
+            type: "string",
+          },
+          report: {
             type: "string",
           },
           covid: {
