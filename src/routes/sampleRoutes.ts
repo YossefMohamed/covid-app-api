@@ -13,11 +13,7 @@ import { protect } from "../utiles/authGuard";
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + "-" + Date.now());
-  },
-});
+const storage = multer.diskStorage({});
 
 
 const upload = multer({
@@ -31,9 +27,12 @@ const upload = multer({
 
 router.use(protect);
 router.post("/", upload.single("sample"), addSample);
-router.post("/addtocustomdataset", upload.single("sample"), addToCustomDataset);
+router.post("/addtocustomdataset",upload.fields([{
+  name: 'sample', maxCount: 1
+}, {
+  name: 'report', maxCount: 1
+}]), addToCustomDataset);
 router.get("/addtocustomdataset", getAllSamplesInCustomDataset);
-
 router.get("/", getSamples);
 router.get("/:id", getSample);
 router.delete("/:id", deleteSample);

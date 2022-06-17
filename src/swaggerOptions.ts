@@ -729,6 +729,13 @@ const swaggerOptions = {
             },
             {
               in: "formData",
+              name: "report",
+              type: "file",
+              description: "The PCR report",
+              required: true,
+            },
+            {
+              in: "formData",
               name: "fever",
               type: "boolean",
               description: "heartProblem if exist",

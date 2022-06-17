@@ -53,14 +53,20 @@ export const addSample = asyncHandler(async (req: any, res: any, next: any) => {
 
 export const addToCustomDataset = asyncHandler(async (req: any, res: any, next: any) => {
   try {
-    const { path } = req.file;
-    const fName = req.file.originalname.split(".")[0];
+    if(req.files.report[0]) throw new Error("Upload An Image Of Your PCR Report")
+    const { path } = req.files.sample[0];
+    console.log(req.files.sample[0] , req.files.sample[0].originalname)
+    const fName = req.files.sample[0].originalname.split(".")[0];
     const { breathProblem, fever,covid } = req.body;
     const sampleData = await cloudinary.v2.uploader.upload(path, {
       resource_type: "raw",
       public_id: `AudioUploads/${fName}`,
       overwrite: true,
     });
+
+    const reportPath = req.files.report[0].path;
+  
+    const reportData = await cloudinary.v2.uploader.upload(reportPath);
   
     const sample = await Sample.create({
       link: sampleData.secure_url,
@@ -68,6 +74,7 @@ export const addToCustomDataset = asyncHandler(async (req: any, res: any, next: 
       user: req.user._id,
       breathProblem,
       fever,
+      report: reportData.secure_url,
       tested : true
     });
 

@@ -57,20 +57,26 @@ exports.addSample = (0, express_async_handler_1.default)((req, res, next) => __a
 }));
 exports.addToCustomDataset = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { path } = req.file;
-        const fName = req.file.originalname.split(".")[0];
-        const { breathProblem, fever, tested } = req.body;
+        if (req.files.report[0])
+            throw new Error("Upload An Image Of Your PCR Report");
+        const { path } = req.files.sample[0];
+        console.log(req.files.sample[0], req.files.sample[0].originalname);
+        const fName = req.files.sample[0].originalname.split(".")[0];
+        const { breathProblem, fever, covid } = req.body;
         const sampleData = yield cloudinary_1.default.v2.uploader.upload(path, {
             resource_type: "raw",
             public_id: `AudioUploads/${fName}`,
             overwrite: true,
         });
+        const reportPath = req.files.report[0].path;
+        const reportData = yield cloudinary_1.default.v2.uploader.upload(reportPath);
         const sample = yield sampleModel_1.default.create({
             link: sampleData.secure_url,
-            covid: true,
+            covid: covid,
             user: req.user._id,
             breathProblem,
             fever,
+            report: reportData.secure_url,
             tested: true
         });
         res.status(201).json({

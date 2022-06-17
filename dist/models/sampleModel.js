@@ -21,6 +21,10 @@ const sampleSchema = new mongoose_1.default.Schema({
         type: Boolean,
         default: false
     },
+    report: {
+        type: String,
+        default: ""
+    },
     user: {
         type: mongoose_1.default.Schema.Types.ObjectId,
         ref: "User",
