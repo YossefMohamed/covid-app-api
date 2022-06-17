@@ -10,13 +10,19 @@ import {
 import { protect } from "../utiles/authGuard";
 
 const router = express.Router();
-router.use(protect);
 
 const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, file.fieldname + "-" + Date.now());
   },
 });
+
+
+const addToCustomDataset = async (req: any, res: any, next: any) => {
+  res.send()
+}
+
+
 
 const upload = multer({
   storage: storage,
@@ -26,8 +32,10 @@ const upload = multer({
   },
 });
 
-router.post("/", upload.single("sample"), addSample);
 
+router.use(protect);
+router.post("/", upload.single("sample"), addSample);
+router.post("/addtocustomdataset", upload.single("sample"), addToCustomDataset);
 router.get("/", getSamples);
 router.get("/:id", getSample);
 router.delete("/:id", deleteSample);

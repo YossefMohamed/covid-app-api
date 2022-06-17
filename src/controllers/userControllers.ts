@@ -6,8 +6,6 @@ import asyncHandler from "express-async-handler";
 import { signIn } from "../utiles/authGuard";
 import Vonage from "@vonage/server-sdk";
 
-const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_TOKEN);
-
 export const signup = asyncHandler(async (req: Request, res: Response) => {
   const {
     name,
@@ -53,13 +51,9 @@ export const messageSender = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       var verCode = "";
-      var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    
+      var possible = "0123456789";
       for (var i = 0; i < 5; i++)
-      verCode += possible.charAt(Math.floor(Math.random() * possible.length));
-    
-
-
+        verCode += possible.charAt(Math.floor(Math.random() * possible.length));
       if (!mongoose.isValidObjectId(req.query.user)) {
         res.status(404).json({
           status: "failed",
@@ -77,13 +71,12 @@ export const messageSender = asyncHandler(
         return;
       }
       const vonage = new Vonage({
-        apiKey: "6634bc4e",
-        apiSecret: "WAM92kRle91tUoVd",
+        apiKey: process.env.VONAGE_API_KEY || "",
+        apiSecret: process.env.VONAGE_API_SECRET || "",
       });
       const from = "Vonage APIs";
       const to = `2${user.number}`;
       const text = `Your Code Is ${verCode}\n STAY SAFE :)`;
-
       vonage.message.sendSms(from, to, text, {}, (err, responseData) => {
         if (err) {
           console.log(err);
@@ -99,7 +92,6 @@ export const messageSender = asyncHandler(
       });
       user.code = `${verCode}`;
       await user.save();
-
       res.status(200).json({
         status: "ok",
         data: { user },

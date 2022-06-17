@@ -8,4 +8,12 @@ COPY package.json .
 RUN npm install
 COPY . .
 
-CMD npm start -p $PORT
+CMD npm start
+
+
+
+
+
+
+
+
