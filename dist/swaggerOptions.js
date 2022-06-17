@@ -713,6 +713,115 @@ const swaggerOptions = {
                     },
                 },
             },
+            "/api/v1/samples/addtocustomdataset": {
+                post: {
+                    tags: ["Samples"],
+                    summary: "Add A New Sample To Our Custom Dataset",
+                    parameters: [
+                        {
+                            in: "formData",
+                            name: "sample",
+                            type: "file",
+                            description: "Sample File To Be Uploaded",
+                            required: true,
+                        },
+                        {
+                            in: "formData",
+                            name: "fever",
+                            type: "boolean",
+                            description: "heartProblem if exist",
+                            required: true,
+                        },
+                        {
+                            in: "formData",
+                            name: "breathProblem",
+                            type: "boolean",
+                            description: "breathProblem if exist",
+                            required: true,
+                        },
+                        {
+                            in: "formData",
+                            name: "tested",
+                            type: "boolean",
+                            description: "spacify that the user is made PCR test",
+                            required: true,
+                        },
+                        {
+                            in: "header",
+                            name: "Authorization",
+                            type: "string",
+                            description: "Authorization Token : 'Bearer TOKEN'",
+                        },
+                    ],
+                    responses: {
+                        "201": {
+                            description: "ok",
+                            schema: {
+                                type: "array",
+                                items: {
+                                    type: "object",
+                                    properties: {
+                                        link: {
+                                            type: "string",
+                                        },
+                                        user: {
+                                            type: "string",
+                                        },
+                                        covid: {
+                                            type: "string",
+                                        },
+                                        _id: {
+                                            type: "string",
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                        "404": {
+                            discrition: "failed",
+                            schema: {
+                                properties: {
+                                    message: {
+                                        type: String,
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                get: {
+                    tags: ["Samples"],
+                    summary: "Get All Samples from Our Custom Dataset",
+                    responses: {
+                        "200": {
+                            description: "Found Samples",
+                            schema: {
+                                type: "array",
+                                items: {
+                                    type: "object",
+                                    properties: {
+                                        link: {
+                                            type: "string",
+                                        },
+                                        user: {
+                                            type: "string",
+                                        },
+                                        covid: {
+                                            type: "string",
+                                        },
+                                        _id: {
+                                            type: "string",
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                        "404": {
+                            description: "Sample Not Found",
+                        },
+                    },
+                },
+            },
             "/api/v1/samples/:id": {
                 get: {
                     tags: ["Samples"],
@@ -886,6 +995,9 @@ const swaggerOptions = {
                         type: "string",
                     },
                     covid: {
+                        type: "boolean",
+                    },
+                    tested: {
                         type: "boolean",
                     },
                     _id: {

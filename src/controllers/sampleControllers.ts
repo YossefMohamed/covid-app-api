@@ -49,10 +49,55 @@ export const addSample = asyncHandler(async (req: any, res: any, next: any) => {
   }
 });
 
+
+
+export const addToCustomDataset = asyncHandler(async (req: any, res: any, next: any) => {
+  try {
+    const { path } = req.file;
+    const fName = req.file.originalname.split(".")[0];
+    const { breathProblem, fever,tested } = req.body;
+    const sampleData = await cloudinary.v2.uploader.upload(path, {
+      resource_type: "raw",
+      public_id: `AudioUploads/${fName}`,
+      overwrite: true,
+    });
+  
+    const sample = await Sample.create({
+      link: sampleData.secure_url,
+      covid: true,
+      user: req.user._id,
+      breathProblem,
+      fever,
+      tested : true
+    });
+
+    res.status(201).json({
+      status: "ok",
+      data: sample,
+    });
+  } catch (error: any) {
+    next(new Error(error));
+  }
+});
+
+export const getAllSamplesInCustomDataset = asyncHandler(async (req: any, res: any, next: any) => {
+  try {
+    const samples = await Sample.find({tested : true });
+    res.status(200).json({
+      status: "ok",
+      data: samples,
+    });
+  } catch (error: any) {
+    next(new Error(error));
+  }
+}
+);
+
+
 export const getSamples = asyncHandler(
   async (req: any, res: any, next: any) => {
     try {
-      const samples = await Sample.find({ user: req.user._id });
+      const samples = await Sample.find({ user: req.user._id  , tested : false});
       res.status(200).json({
         status: "ok",
         data: {

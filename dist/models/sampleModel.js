@@ -17,6 +17,9 @@ const sampleSchema = new mongoose_1.default.Schema({
     },
     fever: {
         type: Boolean,
+    }, tested: {
+        type: Boolean,
+        default: false
     },
     user: {
         type: mongoose_1.default.Schema.Types.ObjectId,

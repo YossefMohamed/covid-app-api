@@ -715,11 +715,10 @@ const swaggerOptions = {
           },
         },
       },
-
-      "/api/v1/samples/addToCustomDataset": {
+      "/api/v1/samples/addtocustomdataset": {
         post: {
           tags: ["Samples"],
-          summary: "Add A New Sample",
+          summary: "Add A New Sample To Our Custom Dataset",
           parameters: [
             {
               in: "formData",
@@ -740,6 +739,14 @@ const swaggerOptions = {
               name: "breathProblem",
               type: "boolean",
               description: "breathProblem if exist",
+              required: true,
+            },
+            
+            {
+              in: "formData",
+              name: "tested",
+              type: "boolean",
+              description: "spacify that the user is made PCR test",
               required: true,
             },
             {
@@ -789,15 +796,7 @@ const swaggerOptions = {
         },
         get: {
           tags: ["Samples"],
-          summary: "Get All Samples",
-          parameters: [
-            {
-              in: "header",
-              name: "Authorization",
-              type: "string",
-              description: "Authorization Token : 'Bearer TOKEN'",
-            },
-          ],
+          summary: "Get All Samples from Our Custom Dataset",
           responses: {
             "200": {
               description: "Found Samples",
@@ -822,15 +821,13 @@ const swaggerOptions = {
                 },
               },
             },
-            "401": {
-              description: "User Not Authorized",
-            },
             "404": {
               description: "Sample Not Found",
             },
           },
         },
       },
+
       "/api/v1/samples/:id": {
         get: {
           tags: ["Samples"],
@@ -1009,6 +1006,9 @@ const swaggerOptions = {
             type: "string",
           },
           covid: {
+            type: "boolean",
+          },
+          tested: {
             type: "boolean",
           },
           _id: {

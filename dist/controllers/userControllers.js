@@ -13,13 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUser = exports.resetPassword = exports.updateUser = exports.login = exports.verfiyNumber = exports.messageSender = exports.signup = void 0;
-const twilio_1 = __importDefault(require("twilio"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const userModel_1 = __importDefault(require("../models/userModel"));
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const authGuard_1 = require("../utiles/authGuard");
 const server_sdk_1 = __importDefault(require("@vonage/server-sdk"));
-const client = (0, twilio_1.default)(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_TOKEN);
 exports.signup = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, lastName, number, gender, email, password, confirmPassword, } = req.body;
     if (password !== confirmPassword) {
@@ -45,7 +43,10 @@ exports.signup = (0, express_async_handler_1.default)((req, res) => __awaiter(vo
 }));
 exports.messageSender = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const verCode = "784585";
+        var verCode = "";
+        var possible = "0123456789";
+        for (var i = 0; i < 5; i++)
+            verCode += possible.charAt(Math.floor(Math.random() * possible.length));
         if (!mongoose_1.default.isValidObjectId(req.query.user)) {
             res.status(404).json({
                 status: "failed",
@@ -61,20 +62,6 @@ exports.messageSender = (0, express_async_handler_1.default)((req, res, next) =>
             });
             return;
         }
-        //       const from = "Vonage APIs"
-        // const to = "201151784019"
-        // const text = 'A text message sent using the Vonage SMS API'
-        // vonage.message.sendSms(from, to, text, (err, responseData) => {
-        //     if (err) {
-        //         console.log(err);
-        //     } else {
-        //         if(responseData.messages[0]['status'] === "0") {
-        //             console.log("Message sent successfully.");
-        //         } else {
-        //             console.log(`Message failed with error: ${responseData.messages[0]['error-text']}`);
-        //         }
-        //     }
-        // })
         const vonage = new server_sdk_1.default({
             apiKey: "6634bc4e",
             apiSecret: "WAM92kRle91tUoVd",

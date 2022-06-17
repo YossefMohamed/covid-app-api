@@ -2,7 +2,9 @@ import express from "express";
 import multer from "multer";
 import {
   addSample,
+  addToCustomDataset,
   deleteSample,
+  getAllSamplesInCustomDataset,
   getSample,
   getSamples,
 } from "../controllers/sampleControllers";
@@ -18,12 +20,6 @@ const storage = multer.diskStorage({
 });
 
 
-const addToCustomDataset = async (req: any, res: any, next: any) => {
-  res.send()
-}
-
-
-
 const upload = multer({
   storage: storage,
   limits: {
@@ -36,6 +32,8 @@ const upload = multer({
 router.use(protect);
 router.post("/", upload.single("sample"), addSample);
 router.post("/addtocustomdataset", upload.single("sample"), addToCustomDataset);
+router.get("/addtocustomdataset", getAllSamplesInCustomDataset);
+
 router.get("/", getSamples);
 router.get("/:id", getSample);
 router.delete("/:id", deleteSample);

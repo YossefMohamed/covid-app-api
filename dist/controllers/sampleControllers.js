@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteSample = exports.getSample = exports.getSamples = exports.addSample = void 0;
+exports.deleteSample = exports.getSample = exports.getSamples = exports.getAllSamplesInCustomDataset = exports.addToCustomDataset = exports.addSample = void 0;
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const cloudinary_1 = __importDefault(require("cloudinary"));
 const sampleModel_1 = __importDefault(require("../models/sampleModel"));
@@ -55,9 +55,48 @@ exports.addSample = (0, express_async_handler_1.default)((req, res, next) => __a
         next(new Error(error));
     }
 }));
+exports.addToCustomDataset = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { path } = req.file;
+        const fName = req.file.originalname.split(".")[0];
+        const { breathProblem, fever, tested } = req.body;
+        const sampleData = yield cloudinary_1.default.v2.uploader.upload(path, {
+            resource_type: "raw",
+            public_id: `AudioUploads/${fName}`,
+            overwrite: true,
+        });
+        const sample = yield sampleModel_1.default.create({
+            link: sampleData.secure_url,
+            covid: true,
+            user: req.user._id,
+            breathProblem,
+            fever,
+            tested: true
+        });
+        res.status(201).json({
+            status: "ok",
+            data: sample,
+        });
+    }
+    catch (error) {
+        next(new Error(error));
+    }
+}));
+exports.getAllSamplesInCustomDataset = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const samples = yield sampleModel_1.default.find({ tested: true });
+        res.status(200).json({
+            status: "ok",
+            data: samples,
+        });
+    }
+    catch (error) {
+        next(new Error(error));
+    }
+}));
 exports.getSamples = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const samples = yield sampleModel_1.default.find({ user: req.user._id });
+        const samples = yield sampleModel_1.default.find({ user: req.user._id, tested: false });
         res.status(200).json({
             status: "ok",
             data: {
