@@ -52,7 +52,13 @@ export const signup = asyncHandler(async (req: Request, res: Response) => {
 export const messageSender = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const verCode = "784585";
+      var verCode = "";
+      var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    
+      for (var i = 0; i < 5; i++)
+      verCode += possible.charAt(Math.floor(Math.random() * possible.length));
+    
+
 
       if (!mongoose.isValidObjectId(req.query.user)) {
         res.status(404).json({
@@ -70,23 +76,6 @@ export const messageSender = asyncHandler(
         });
         return;
       }
-
-      //       const from = "Vonage APIs"
-      // const to = "201151784019"
-      // const text = 'A text message sent using the Vonage SMS API'
-
-      // vonage.message.sendSms(from, to, text, (err, responseData) => {
-      //     if (err) {
-      //         console.log(err);
-      //     } else {
-      //         if(responseData.messages[0]['status'] === "0") {
-      //             console.log("Message sent successfully.");
-      //         } else {
-      //             console.log(`Message failed with error: ${responseData.messages[0]['error-text']}`);
-      //         }
-      //     }
-      // })
-
       const vonage = new Vonage({
         apiKey: "6634bc4e",
         apiSecret: "WAM92kRle91tUoVd",
