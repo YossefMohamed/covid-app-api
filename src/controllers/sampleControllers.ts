@@ -55,7 +55,7 @@ export const addToCustomDataset = asyncHandler(async (req: any, res: any, next: 
   try {
     const { path } = req.file;
     const fName = req.file.originalname.split(".")[0];
-    const { breathProblem, fever,tested } = req.body;
+    const { breathProblem, fever,covid } = req.body;
     const sampleData = await cloudinary.v2.uploader.upload(path, {
       resource_type: "raw",
       public_id: `AudioUploads/${fName}`,
@@ -64,7 +64,7 @@ export const addToCustomDataset = asyncHandler(async (req: any, res: any, next: 
   
     const sample = await Sample.create({
       link: sampleData.secure_url,
-      covid: true,
+      covid: covid,
       user: req.user._id,
       breathProblem,
       fever,

@@ -744,7 +744,7 @@ const swaggerOptions = {
             
             {
               in: "formData",
-              name: "tested",
+              name: "covid",
               type: "boolean",
               description: "spacify that the user is made PCR test",
               required: true,
