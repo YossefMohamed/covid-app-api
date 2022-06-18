@@ -28,10 +28,10 @@ const upload = multer({
 router.use(protect);
 router.post("/", upload.single("sample"), addSample);
 router.post("/addtocustomdataset",upload.fields([{
-  name: 'sample', maxCount: 1
-}, {
-  name: 'report', maxCount: 1
-}]), addToCustomDataset);
+    name: 'sample', maxCount: 1
+  }, {
+    name: 'report', maxCount: 1
+  }]), addToCustomDataset);
 router.get("/addtocustomdataset", getAllSamplesInCustomDataset);
 router.get("/", getSamples);
 router.get("/:id", getSample);

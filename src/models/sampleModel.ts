@@ -25,7 +25,8 @@ const sampleSchema: Schema<SampleInterface> =
       },
       fever: {
         type: Boolean,
-      },tested: {
+      },
+      tested: {
         type: Boolean,
         default : false
       },

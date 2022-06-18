@@ -53,7 +53,7 @@ export const addSample = asyncHandler(async (req: any, res: any, next: any) => {
 
 export const addToCustomDataset = asyncHandler(async (req: any, res: any, next: any) => {
   try {
-    if(req.files.report[0]) throw new Error("Upload An Image Of Your PCR Report")
+    if(!req.files.report[0]) throw new Error("Upload An Image Of Your PCR Report")
     const { path } = req.files.sample[0];
     console.log(req.files.sample[0] , req.files.sample[0].originalname)
     const fName = req.files.sample[0].originalname.split(".")[0];
