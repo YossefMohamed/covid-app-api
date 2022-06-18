@@ -57,7 +57,7 @@ exports.addSample = (0, express_async_handler_1.default)((req, res, next) => __a
 }));
 exports.addToCustomDataset = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        if (req.files.report[0])
+        if (!req.files.report[0])
             throw new Error("Upload An Image Of Your PCR Report");
         const { path } = req.files.sample[0];
         console.log(req.files.sample[0], req.files.sample[0].originalname);
