@@ -81,3 +81,18 @@ In this end point, we used POST, PATCH and DELETE.
   
   https://cough-api.herokuapp.com/api-docs/
 
+## dotenv example
+
+CLOUDINARY_NAME.cloudinary_api_name
+CLOUDINARY_KEY=cloudinary_api_key 
+CLOUDINARY_SECRET=cloudinary_api_secret
+MONGODBURI=mongoDB_URI 
+JWT_SECRET=jwt_secret 
+VOYAGE_API_SECRET=voyage_api_secret
+DEPLOYED_LINK=deployed_model_link_server
+ 
+
+
+
+
+
