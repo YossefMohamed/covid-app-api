@@ -66,9 +66,12 @@ app.get('/admin',async function(req, res) {
   const testedSamples = await Sample.find({tested : true}).count()
   const negativeSamples = await Sample.find({tested : {$not :{$eq : true}} , covid : false}).count()
   const positiveSamples = await Sample.find({tested : {$not :{$eq : true}} , covid : true}).count()
+  console.log(testedSamples)
+  console.log(samples)
+  console.log(testedSamples+samples)
   res.render('index' , {
     users : usersArray.length,
-    samples : samplesArray.length,
+    samples : samples,
     testedSamples,
     totalSamples : testedSamples+samples,
     negativeSamples,

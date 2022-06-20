@@ -70,9 +70,12 @@ app.get('/admin', function (req, res) {
         const testedSamples = yield sampleModel_1.default.find({ tested: true }).count();
         const negativeSamples = yield sampleModel_1.default.find({ tested: { $not: { $eq: true } }, covid: false }).count();
         const positiveSamples = yield sampleModel_1.default.find({ tested: { $not: { $eq: true } }, covid: true }).count();
+        console.log(testedSamples);
+        console.log(samples);
+        console.log(testedSamples + samples);
         res.render('index', {
             users: usersArray.length,
-            samples: samplesArray.length,
+            samples: samples,
             testedSamples,
             totalSamples: testedSamples + samples,
             negativeSamples,
