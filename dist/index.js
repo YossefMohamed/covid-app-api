@@ -111,7 +111,7 @@ app.post('/admin/login', function (req, res) {
         const user = yield userModel_1.default.findOne({ number: req.body.number.trim() });
         if (!user || !(yield user.matchPassword(req.body.password))) {
             return res.render('login', {
-                message: "Number Or Email Are Incorrect!!"
+                message: "Number Or Password Are Incorrect!!"
             });
         }
         const token = (0, authGuard_1.signIn)(user.id);

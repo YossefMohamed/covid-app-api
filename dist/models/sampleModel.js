@@ -26,6 +26,9 @@ const sampleSchema = new mongoose_1.default.Schema({
         type: String,
         default: ""
     },
+    verified: {
+        type: Boolean
+    },
     user: {
         type: mongoose_1.default.Schema.Types.ObjectId,
         ref: "User",
