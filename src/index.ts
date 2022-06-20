@@ -59,19 +59,16 @@ app.use((err: any, req: any, res: any, next: any) => {
 
 
 app.get('/admin',async function(req, res) {
-  if(!req.cookies.token) return   res.redirect('/admin/login');
+  if(!req.cookies.token) return res.redirect('/admin/login');
   const usersArray = await User.find()
   const samples = await Sample.find({tested : {$not :{$eq : true}}}).count()
   const samplesArray = await Sample.find()
   const testedSamples = await Sample.find({tested : true}).count()
   const negativeSamples = await Sample.find({tested : {$not :{$eq : true}} , covid : false}).count()
   const positiveSamples = await Sample.find({tested : {$not :{$eq : true}} , covid : true}).count()
-  console.log(testedSamples)
-  console.log(samples)
-  console.log(testedSamples+samples)
   res.render('index' , {
     users : usersArray.length,
-    samples : samples,
+    samples : samplesArray.length,
     testedSamples,
     totalSamples : testedSamples+samples,
     negativeSamples,
@@ -103,7 +100,7 @@ app.post('/admin/login',async function(req, res) {
   const user = await User.findOne({number : req.body.number.trim()})
   if (!user || !(await user.matchPassword(req.body.password))) {
     return res.render('login' , {
-      message : "Number Or Email Are Incorrect!!"
+      message : "Number Or Password Are Incorrect!!"
     });
   }
   const token = signIn(user.id);

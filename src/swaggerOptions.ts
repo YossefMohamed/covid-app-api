@@ -2,7 +2,7 @@ const swaggerOptions = {
   swaggerDefinition: {
     info: {
       title: "Covid App Api",
-      description: "Using Couph Sound To Detect Covid-19",
+      description: "Using Cough Sound To Detect Covid-19",
       version: "1.0.0",
       content: {
         name: "Covid App Api",

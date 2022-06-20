@@ -114,14 +114,14 @@
                                 
                             </div>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7 chart ">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7">
                             <div class="child">
                                 <span>
                                     <h6> <i class="las la-chart-pie"></i>Samples</h6>
 
                                 </span>
     
-                                <canvas id="oilChart" width="1000" height="500"></canvas>
+                                <canvas id="oilChart" width="800" height="500"></canvas>
                             </div>                      
                         </div>
                     </div>
@@ -211,15 +211,15 @@ Chart.defaults.global.defaultFontSize = 18;
 var samplesData = {
     labels: [
        
-        "Predicted samples",
-        "Verified samples",
+        "Negative samples",
+        "Positive samples",
     ],
     datasets: [
         {
-            data: ['<%= samples %>' ,<%= testedSamples %> ],
+            data: [<%= negativeSamples %>,<%= positiveSamples %> ],
             backgroundColor: [
-                "#FF6384",
-                "#63FF84",
+                "#28a745",
+                "#dc3545",
             ]
         }]
 };
