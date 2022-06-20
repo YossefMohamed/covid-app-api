@@ -7,6 +7,8 @@ import {
   getAllSamplesInCustomDataset,
   getSample,
   getSamples,
+  getUnvirfiedSamples,
+  verifySample,
 } from "../controllers/sampleControllers";
 
 import { protect } from "../utiles/authGuard";
@@ -32,7 +34,9 @@ router.post("/addtocustomdataset",upload.fields([{
   }, {
     name: 'report', maxCount: 1
   }]), addToCustomDataset);
-router.get("/addtocustomdataset", getAllSamplesInCustomDataset);
+router.get("/dataset", getAllSamplesInCustomDataset);
+router.get("/verifysample", getUnvirfiedSamples);
+router.patch("/verifysample/:sampleID", verifySample);
 router.get("/", getSamples);
 router.get("/:id", getSample);
 router.delete("/:id", deleteSample);

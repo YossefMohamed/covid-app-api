@@ -23,7 +23,9 @@ router.post("/addtocustomdataset", upload.fields([{
     }, {
         name: 'report', maxCount: 1
     }]), sampleControllers_1.addToCustomDataset);
-router.get("/addtocustomdataset", sampleControllers_1.getAllSamplesInCustomDataset);
+router.get("/dataset", sampleControllers_1.getAllSamplesInCustomDataset);
+router.get("/verifysample", sampleControllers_1.getUnvirfiedSamples);
+router.patch("/verifysample/:sampleID", sampleControllers_1.verifySample);
 router.get("/", sampleControllers_1.getSamples);
 router.get("/:id", sampleControllers_1.getSample);
 router.delete("/:id", sampleControllers_1.deleteSample);
