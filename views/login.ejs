@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CO-Beat DashBoard</title>
+    <link rel="stylesheet" href="/statics/css/bootstrap.css">
+    <link rel="stylesheet" href="/statics/css/line-awesome.min.css">
+    <link rel="stylesheet" href="/statics/css/style.css">
+    
+</head>
+
+<body>
+    <div class="wrapper">
+   
+
+        <!--regular nav-->
+        <div class="main">
+            <section class="vh-100 text-light">
+                <div class="container py-5 h-100">
+                  <div class="row d-flex align-items-center justify-content-center h-100">
+                    <div class="col-md-8 col-lg-7 col-xl-6">
+                      <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw1.svg"
+                        class="img-fluid" alt="Phone image">
+                    </div>
+                    <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                        <% if(message){%>
+                        <div class="alert alert-danger">
+                            <%= message %>
+                        </div>
+                        <% } %>
+
+                      <form method="POST" action="/admin/login">
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form1Example13">Number:</label>
+
+                          <input type="text" id="form1Example13" name="number" class="form-control form-control-lg" />
+                        </div>
+              
+                        <!-- Password input -->
+                        <div class="form-outline mb-4">
+                          <label class="form-label" for="form1Example23">Password:</label>
+
+                          <input type="password" id="form1Example23" name="password" class="form-control form-control-lg" />
+                        </div>
+              
+                        <div class="d-flex justify-content-around align-items-center mb-4">
+                          <!-- Checkbox -->
+                        
+                        </div>
+              
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+        </div>
+            
+    </div>
+
+    <script src="/statics/js/jquery.js"></script>
+    <script src="/statics/js/bootstrap.js"></script>
+    <script src="/statics/js/main.js"></script>
+    <script src="/statics/https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+    <script>
+        var ctx = document.getElementById('myChart').getContext("2d");
+
+        var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
+        gradientStroke.addColorStop(0, '#00d8c0');
+        gradientStroke.addColorStop(1, '#ff6a72');
+
+        var gradientFill = ctx.createLinearGradient(500, 0, 100, 0);
+        gradientFill.addColorStop(0, "rgba(0, 216, 192, 0.10)");
+        gradientFill.addColorStop(1, "rgba(255, 106, 114, 0.10)");
+
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL"],
+                datasets: [{
+                    label: "Data",
+                    borderColor: gradientStroke,
+                    pointBorderColor: gradientStroke,
+                    pointBackgroundColor: gradientStroke,
+                    pointHoverBackgroundColor: gradientStroke,
+                    pointHoverBorderColor: gradientStroke,
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 2,
+                    pointHoverBorderWidth: 1,
+                    pointRadius: 3,
+                    fill: true,
+                    backgroundColor: gradientFill,
+                    borderWidth: 2,
+                    data: [50, 150, 200, 270, 320, 470, 500]
+                }]
+            },
+            options: {
+                legend: {
+                    position: "bottom"
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            fontColor: "grey",
+                            fontStyle: "bold",
+                            beginAtZero: true,
+                            maxTicksLimit: 5,
+                            padding: 20
+                        },
+                        gridLines: {
+                            drawTicks: false,
+                            display: false
+                        }
+
+                    }],
+                    xAxes: [{
+                        gridLines: {
+                            zeroLineColor: "transparent"
+                        },
+                        ticks: {
+                            padding: 20,
+                            fontColor: "grey",
+                            fontStyle: "bold"
+                        }
+                    }]
+                }
+            }
+        });
+
+        var pieData = {
+            labels: ["RETURNS", "SALES", "DISCOUNTS"],
+            datasets: [{
+                data: [320, 500, 230],
+                backgroundColor: ["#e53759", "#1676b7", "#d69d19"],
+                hoverBackgroundColor: ["#ce2143", "#0c6099", "#bc8612"]
+            }]
+        };
+        var options = {
+            segmentShowStroke: false,
+            animateScale: true,
+            responsive: true,
+            legend: {
+                display: true,
+                position: "bottom"
+            },
+
+        };
+        var gas2 = document.getElementById("pie").getContext("2d");
+        new Chart(gas2, {
+            type: "pie",
+            data: pieData,
+            options: options
+        });
+    </script>
+
+
+</body>
+
+</html>

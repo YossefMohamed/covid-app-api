@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CO-Beat DashBoard</title>
+    <link rel="stylesheet" href="/statics/css/bootstrap.css">
+    <link rel="stylesheet" href="/statics/css/line-awesome.min.css">
+    <link rel="stylesheet" href="/statics/css/style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav id="sidebar">
+            <div class="fixed">
+                <div class="sidebar-header">
+                    <div class="logo">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2913/2913604.png" alt="">
+                    </div>
+                    <h4>CO-Beat</h4>
+                </div>
+
+                <ul class="list-unstyled components">
+                    <h6>main</h6>
+                    <li >
+                        <a href="/admin">
+                            <span> <i class="las la-tachometer-alt"></i> dashboard </span>
+                        </a>
+                    </li>
+
+                    <li class="active"> 
+                        <a href="/admin/samples">
+                            <span> <i class="las la-inbox"></i> Samples </span>
+                        </a>
+                    </li>
+                   
+
+                </ul>
+            </div>
+        </nav>
+
+        <!--regular nav-->
+        <div class="main">
+            <nav class="upper navbar">
+                <div class="right">
+                    <button type="button" id="sidebarCollapse" class="btn">
+                        <i class="las la-bars"></i>
+                    </button>
+                  
+                </div>
+
+                <div class="admin">
+                    <ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/logout">
+                                <h4 >
+                                    <i class="las la-sign-out-alt"></i>
+                                </h4>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!--content-->
+            <div class="content">
+                <div class="wrap">
+                    <div class="row">
+                       <h3 class="text-light">
+                           Number Of Total Samples is <%= samples.length %>
+                       </h3>
+                    </div>
+                </div>
+                <!--second row-->
+                <div class="row sec-row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="child tableWrap" style="overflow-x: auto;">
+                            <h6>
+                                Users
+                            </h6>
+                            <table class="table" style="overflow-y:auto">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            Tested
+                                        </th>
+                                        <th scope="col">
+                                            covid
+                                        </th>
+                                        <th scope="col">
+                                            breathProblem
+                                        </th>
+                                        <th scope="col">
+                                            fever
+                                        </th>
+                                        <th scope="col">
+                                            coughLink
+                                        </th>
+                                        <th scope="col">
+                                            Report
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                               
+                                    <% for(var i=0; i<samples.length; i++) {%>
+                                        <tr>
+                                            <td><%= samples[i].tested %></td>
+                                            <td><%= samples[i].covid %></td>
+                                            <td><%= samples[i].breathProblem %></td>
+                                            <td><%= samples[i].fever %></td>
+                                            <td><a href="<%= samples[i].link %>">Cough Link</a></td>
+                                            <% if(samples[i].report){ %>
+                                                <td><a href="<%= samples[i].report %>">Cough report</a></td>
+                                                <% }else{ %>
+
+                                                    <td>
+                                                    Not Avaiable</td>
+                                                    <% }  %>
+
+                                        </tr>
+                                   
+                                     <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/statics/js/jquery.js"></script>
+    <script src="/statics/js/bootstrap.js"></script>
+    <script src="/statics/js/main.js"></script>
+    <script src="/statics/https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+    <script>
+        var ctx = document.getElementById('myChart').getContext("2d");
+
+        var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
+        gradientStroke.addColorStop(0, '#00d8c0');
+        gradientStroke.addColorStop(1, '#ff6a72');
+
+        var gradientFill = ctx.createLinearGradient(500, 0, 100, 0);
+        gradientFill.addColorStop(0, "rgba(0, 216, 192, 0.10)");
+        gradientFill.addColorStop(1, "rgba(255, 106, 114, 0.10)");
+
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL"],
+                datasets: [{
+                    label: "Data",
+                    borderColor: gradientStroke,
+                    pointBorderColor: gradientStroke,
+                    pointBackgroundColor: gradientStroke,
+                    pointHoverBackgroundColor: gradientStroke,
+                    pointHoverBorderColor: gradientStroke,
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 2,
+                    pointHoverBorderWidth: 1,
+                    pointRadius: 3,
+                    fill: true,
+                    backgroundColor: gradientFill,
+                    borderWidth: 2,
+                    data: [50, 150, 200, 270, 320, 470, 500]
+                }]
+            },
+            options: {
+                legend: {
+                    position: "bottom"
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            fontColor: "grey",
+                            fontStyle: "bold",
+                            beginAtZero: true,
+                            maxTicksLimit: 5,
+                            padding: 20
+                        },
+                        gridLines: {
+                            drawTicks: false,
+                            display: false
+                        }
+
+                    }],
+                    xAxes: [{
+                        gridLines: {
+                            zeroLineColor: "transparent"
+                        },
+                        ticks: {
+                            padding: 20,
+                            fontColor: "grey",
+                            fontStyle: "bold"
+                        }
+                    }]
+                }
+            }
+        });
+
+        var pieData = {
+            labels: ["RETURNS", "SALES", "DISCOUNTS"],
+            datasets: [{
+                data: [320, 500, 230],
+                backgroundColor: ["#e53759", "#1676b7", "#d69d19"],
+                hoverBackgroundColor: ["#ce2143", "#0c6099", "#bc8612"]
+            }]
+        };
+        var options = {
+            segmentShowStroke: false,
+            animateScale: true,
+            responsive: true,
+            legend: {
+                display: true,
+                position: "bottom"
+            },
+
+        };
+        var gas2 = document.getElementById("pie").getContext("2d");
+        new Chart(gas2, {
+            type: "pie",
+            data: pieData,
+            options: options
+        });
+    </script>
+
+
+</body>
+
+</html>
