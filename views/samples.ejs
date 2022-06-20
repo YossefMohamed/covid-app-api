@@ -108,7 +108,19 @@
                                     <% for(var i=0; i<samples.length; i++) {%>
                                         <tr>
                                             <td><%= samples[i].tested %></td>
-                                            <td><%= samples[i].covid %></td>
+
+
+
+<% if(samples[i].covid){ %>
+                                                <td class="text-danger">Positive</td>
+                                                <% }else{ %>
+
+                                                    <td class="text-success">
+                                                   Negative
+</td>
+                                                    <% }  %>
+
+
                                             <td><%= samples[i].breathProblem %></td>
                                             <td><%= samples[i].fever %></td>
                                             <td><a href="<%= samples[i].link %>">Cough Link</a></td>
