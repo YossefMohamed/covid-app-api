@@ -799,6 +799,12 @@ const swaggerOptions = {
                 get: {
                     tags: ["Samples"],
                     summary: "Get All Samples from Our Custom Dataset For ADMIN only",
+                    parameters: [{
+                            in: "header",
+                            name: "Authorization",
+                            type: "string",
+                            description: "Authorization Token : 'Bearer TOKEN'",
+                        },],
                     responses: {
                         "200": {
                             description: "Found Samples",
