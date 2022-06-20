@@ -54,7 +54,7 @@
                     <ul>
                     
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/admin/logout">
                                 <h4 >
                                     <i class="las la-sign-out-alt"></i>
                                 </h4>
@@ -70,76 +70,83 @@
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
                             <div class="row">
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mb-4">
                                     <div class="child">
-                                        <h6> <i class="las la-users"></i> Total Users</h6>
+                                        <h6> <i class="las la-users"></i> Users</h6>
                                         <div class="details">
-                                            <h4><%= users %> Users</h4>
+                                            <h4><%= users %> User</h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mb-4">
+                                    <div class="child">
+                                        <h6> <i class="las la-tasks"></i>Predicted Samples</h6>
+                                        <div class="details">
+                                            <h4><%= samples %> samples</h4>
 
                                             
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 ">
                                     <div class="child">
-                                        <h6> <i class="las la-tasks"></i> Total Samples</h6>
+                                        <h6> <i class="las la-check"></i>Verified Samples</h6>
                                         <div class="details">
-                                            <h4><%= totalSamples %> Total Samples</h4>
+                                            <h4><%= testedSamples %> samples</h4>
+
+                                            
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 ">
                                     <div class="child">
-                                        <h6> <i class="las la-wallet"></i>Tested Samples</h6>
+                                        <h6> <i class="las la-tasks"></i>Total Samples</h6>
                                         <div class="details">
-                                            <h4><%= testedSamples %> Tested Samples</h4>
+                                            <h4><%= totalSamples %> samples</h4>
 
+                                            
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                                    <div class="child">
-                                        <h6> <i class="las la-chart-pie"></i> growth</h6>
-                                        <div class="details">
-                                            <h4><%= samples %> Predicted </h4>
-
-                                        </div>
-                                    </div>
-                                </div>
+                                </div>  
+                                
                             </div>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
-                            <div class="row">
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                                    <div class="child bg-success ">
-                                        <h6 class="text-light"> <i class="las la-users text-light"></i> Positive Samples</h6>
-                                        <div class="details">
-                                            <h4><%= positiveSamples %> Samples</h4>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7 chart ">
+                            <div class="child">
+                                <span>
+                                    <h6> <i class="las la-chart-pie"></i>Samples</h6>
 
-                                            
-                                        </div>
-                                    </div>
-                                </div>
+                                </span>
+    
+                                <canvas id="oilChart" width="1000" height="500"></canvas>
+                            </div>                      
+                        </div>
+                    </div>
 
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                                    <div class="child bg-danger ">
-                                        <h6 class="text-light"> <i class="las la-users text-light"></i> Positive Samples</h6>
-                                        <div class="details">
-                                            <h4><%= negativeSamples %> Samples</h4>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 my-3">
+                        <div class="child bg-success">
+                            <h6 class="text-light"> <i class="las la-tasks text-light"></i>Negative Samples</h6>
+                            <div class="details ">
+                                <h4><%= negativeSamples %> samples</h4>
 
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-
-                               
-                               
+                                
                             </div>
                         </div>
-                       
+                    </div>  
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 my-3">
+                        <div class="child bg-danger ">
+                            <h6 class="text-light"> <i class="las la-tasks text-light"></i>Total Samples</h6>
+                            <div class="details text-light">
+                                <h4><%= positiveSamples %> samples</h4>
+
+                                
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!--second row-->
@@ -194,98 +201,39 @@
     <script src="/statics/js/jquery.js"></script>
     <script src="/statics/js/bootstrap.js"></script>
     <script src="/statics/js/main.js"></script>
-    <script src="/statics/https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
     <script>
-        var ctx = document.getElementById('myChart').getContext("2d");
+        var oilCanvas = document.getElementById("oilChart");
 
-        var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
-        gradientStroke.addColorStop(0, '#00d8c0');
-        gradientStroke.addColorStop(1, '#ff6a72');
+Chart.defaults.global.defaultFontFamily = "Lato";
+Chart.defaults.global.defaultFontSize = 18;
+var samplesData = {
+    labels: [
+       
+        "Predicted samples",
+        "Verified samples",
+    ],
+    datasets: [
+        {
+            data: ['<%= samples %>' ,<%= testedSamples %> ],
+            backgroundColor: [
+                "#FF6384",
+                "#63FF84",
+            ]
+        }]
+};
 
-        var gradientFill = ctx.createLinearGradient(500, 0, 100, 0);
-        gradientFill.addColorStop(0, "rgba(0, 216, 192, 0.10)");
-        gradientFill.addColorStop(1, "rgba(255, 106, 114, 0.10)");
-
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL"],
-                datasets: [{
-                    label: "Data",
-                    borderColor: gradientStroke,
-                    pointBorderColor: gradientStroke,
-                    pointBackgroundColor: gradientStroke,
-                    pointHoverBackgroundColor: gradientStroke,
-                    pointHoverBorderColor: gradientStroke,
-                    pointBorderWidth: 2,
-                    pointHoverRadius: 2,
-                    pointHoverBorderWidth: 1,
-                    pointRadius: 3,
-                    fill: true,
-                    backgroundColor: gradientFill,
-                    borderWidth: 2,
-                    data: [50, 150, 200, 270, 320, 470, 500]
-                }]
-            },
-            options: {
-                legend: {
-                    position: "bottom"
-                },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            fontColor: "grey",
-                            fontStyle: "bold",
-                            beginAtZero: true,
-                            maxTicksLimit: 5,
-                            padding: 20
-                        },
-                        gridLines: {
-                            drawTicks: false,
-                            display: false
-                        }
-
-                    }],
-                    xAxes: [{
-                        gridLines: {
-                            zeroLineColor: "transparent"
-                        },
-                        ticks: {
-                            padding: 20,
-                            fontColor: "grey",
-                            fontStyle: "bold"
-                        }
-                    }]
-                }
-            }
-        });
-
-        var pieData = {
-            labels: ["RETURNS", "SALES", "DISCOUNTS"],
-            datasets: [{
-                data: [320, 500, 230],
-                backgroundColor: ["#e53759", "#1676b7", "#d69d19"],
-                hoverBackgroundColor: ["#ce2143", "#0c6099", "#bc8612"]
-            }]
-        };
-        var options = {
-            segmentShowStroke: false,
-            animateScale: true,
-            responsive: true,
-            legend: {
-                display: true,
-                position: "bottom"
-            },
-
-        };
-        var gas2 = document.getElementById("pie").getContext("2d");
-        new Chart(gas2, {
-            type: "pie",
-            data: pieData,
-            options: options
-        });
-    </script>
+var pieChart = new Chart(oilCanvas, {
+  type: 'pie',
+  data: samplesData, 
+  options: {
+  legend: {
+    display: false
+  }
+}
+});
+        </script>
 
 
 </body>
