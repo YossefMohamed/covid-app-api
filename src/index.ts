@@ -63,12 +63,12 @@ app.get('/admin',async function(req, res) {
   const usersArray = await User.find()
   const samples = await Sample.find({tested : {$not :{$eq : true}}}).count()
   const samplesArray = await Sample.find()
-  const testedSamples = await Sample.find({tested : true}).count()
+  const testedSamples = await Sample.find({tested : true ,verified : true}).count()
   const negativeSamples = await Sample.find({tested : {$not :{$eq : true}} , covid : false}).count()
   const positiveSamples = await Sample.find({tested : {$not :{$eq : true}} , covid : true}).count()
   res.render('index' , {
     users : usersArray.length,
-    samples : samplesArray.length,
+    samples,
     testedSamples,
     totalSamples : testedSamples+samples,
     negativeSamples,
@@ -80,10 +80,11 @@ app.get('/admin',async function(req, res) {
 
 app.get('/admin/samples',async function(req, res) {
   if(!req.cookies.token) return res.redirect('/admin/login');
-  const samples = await Sample.find()
-  console.log(samples[0])
+  const samples = await Sample.find({tested : {$not :{$eq : true}}})
+  const testedSamples = await Sample.find({tested : true ,verified : true})
+
   res.render('samples' , {
-    samples
+    samples : [...samples , ...testedSamples]
   });
 });
 
