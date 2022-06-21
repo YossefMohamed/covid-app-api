@@ -67,12 +67,12 @@ app.get('/admin', function (req, res) {
         const usersArray = yield userModel_1.default.find();
         const samples = yield sampleModel_1.default.find({ tested: { $not: { $eq: true } } }).count();
         const samplesArray = yield sampleModel_1.default.find();
-        const testedSamples = yield sampleModel_1.default.find({ tested: true }).count();
+        const testedSamples = yield sampleModel_1.default.find({ tested: true, verified: true }).count();
         const negativeSamples = yield sampleModel_1.default.find({ tested: { $not: { $eq: true } }, covid: false }).count();
         const positiveSamples = yield sampleModel_1.default.find({ tested: { $not: { $eq: true } }, covid: true }).count();
         res.render('index', {
             users: usersArray.length,
-            samples: samplesArray.length,
+            samples,
             testedSamples,
             totalSamples: testedSamples + samples,
             negativeSamples,
@@ -86,10 +86,11 @@ app.get('/admin/samples', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!req.cookies.token)
             return res.redirect('/admin/login');
-        const samples = yield sampleModel_1.default.find();
-        console.log(samples[0]);
+        const samples = yield sampleModel_1.default.find({ tested: { $not: { $eq: true } } });
+        const testedSamples = yield sampleModel_1.default.find({ tested: true, verified: true });
+        console.log(samples);
         res.render('samples', {
-            samples
+            samples: [...samples, ...testedSamples]
         });
     });
 });
@@ -111,7 +112,7 @@ app.post('/admin/login', function (req, res) {
         const user = yield userModel_1.default.findOne({ number: req.body.number.trim() });
         if (!user || !(yield user.matchPassword(req.body.password))) {
             return res.render('login', {
-                message: "Number Or Email Are Incorrect!!"
+                message: "Number Or Password Are Incorrect!!"
             });
         }
         const token = (0, authGuard_1.signIn)(user.id);

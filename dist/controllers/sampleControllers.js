@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteSample = exports.getSample = exports.getSamples = exports.getAllSamplesInCustomDataset = exports.addToCustomDataset = exports.addSample = void 0;
+exports.deleteSample = exports.getSample = exports.getSamples = exports.getUnvirfiedSamples = exports.getAllSamplesInCustomDataset = exports.verifySample = exports.addToCustomDataset = exports.addSample = void 0;
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const cloudinary_1 = __importDefault(require("cloudinary"));
 const sampleModel_1 = __importDefault(require("../models/sampleModel"));
@@ -88,11 +88,48 @@ exports.addToCustomDataset = (0, express_async_handler_1.default)((req, res, nex
         next(new Error(error));
     }
 }));
+exports.verifySample = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        if (req.user.isAdmin === false)
+            throw new Error("You Are Not Authorized To Access This Page");
+        const sampleID = req.query.sampleID;
+        const sample = yield sampleModel_1.default.findOne({ _id: sampleID });
+        if (!sample)
+            throw new Error("Sample Not Found");
+        if (req.body.verified === "false") {
+            yield sample.remove();
+        }
+        else {
+            sample.verified = true;
+        }
+        res.status(200).json({
+            status: "ok",
+            data: sample,
+        });
+    }
+    catch (error) {
+        next(new Error(error));
+    }
+}));
 exports.getAllSamplesInCustomDataset = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         if (req.user.isAdmin === false)
             throw new Error("You Are Not Authorized To Access This Page");
-        const samples = yield sampleModel_1.default.find({ tested: true });
+        const samples = yield sampleModel_1.default.find({ tested: true, verified: true });
+        res.status(200).json({
+            status: "ok",
+            data: samples,
+        });
+    }
+    catch (error) {
+        next(new Error(error));
+    }
+}));
+exports.getUnvirfiedSamples = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        if (req.user.isAdmin === false)
+            throw new Error("You Are Not Authorized To Access This Page");
+        const samples = yield sampleModel_1.default.find({ tested: true, verified: { $not: { $eq: true } } });
         res.status(200).json({
             status: "ok",
             data: samples,

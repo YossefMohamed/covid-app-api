@@ -713,7 +713,7 @@ const swaggerOptions = {
                     },
                 },
             },
-            "/api/v1/samples/addtocustomdataset": {
+            "/api/v1/samples/dataset": {
                 post: {
                     tags: ["Samples"],
                     summary: "Add A New Sample To Our Custom Dataset",
@@ -798,7 +798,7 @@ const swaggerOptions = {
                 },
                 get: {
                     tags: ["Samples"],
-                    summary: "Get All Samples from Our Custom Dataset For ADMIN only",
+                    summary: "Get All Verified Samples from Our Custom Dataset For ADMIN only",
                     parameters: [{
                             in: "header",
                             name: "Authorization",
@@ -824,6 +824,114 @@ const swaggerOptions = {
                                         },
                                         _id: {
                                             type: "string",
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                        "404": {
+                            description: "Sample Not Found",
+                        },
+                        "401": {
+                            description: "Not Authorized",
+                        },
+                    },
+                },
+            },
+            "/api/v1/samples/verifysample": {
+                patch: {
+                    tags: ["Samples"],
+                    summary: "Verify A PCR Sample",
+                    parameters: [
+                        {
+                            in: "query",
+                            name: "sampleID",
+                            description: "ID of the Sample",
+                            schema: {
+                                properties: {
+                                    sample: {
+                                        type: "string",
+                                    },
+                                },
+                            },
+                        },
+                        {
+                            in: "header",
+                            name: "Authorization",
+                            type: "string",
+                            description: "Authorization Token : 'Bearer TOKEN'",
+                        },
+                    ],
+                    responses: {
+                        "201": {
+                            description: "ok",
+                            schema: {
+                                type: "array",
+                                items: {
+                                    type: "object",
+                                    properties: {
+                                        link: {
+                                            type: "string",
+                                        },
+                                        user: {
+                                            type: "string",
+                                        },
+                                        covid: {
+                                            type: "string",
+                                        },
+                                        _id: {
+                                            type: "string",
+                                        },
+                                        verified: {
+                                            type: "Boolean",
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                        "404": {
+                            discrition: "failed",
+                            schema: {
+                                properties: {
+                                    message: {
+                                        type: String,
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                get: {
+                    tags: ["Samples"],
+                    summary: "Get All Unverified Samples from Our Custom Dataset For ADMIN only",
+                    parameters: [{
+                            in: "header",
+                            name: "Authorization",
+                            type: "string",
+                            description: "Authorization Token : 'Bearer TOKEN'",
+                        },],
+                    responses: {
+                        "200": {
+                            description: "Found Samples",
+                            schema: {
+                                type: "array",
+                                items: {
+                                    type: "object",
+                                    properties: {
+                                        link: {
+                                            type: "string",
+                                        },
+                                        user: {
+                                            type: "string",
+                                        },
+                                        covid: {
+                                            type: "string",
+                                        },
+                                        _id: {
+                                            type: "string",
+                                        },
+                                        verified: {
+                                            type: "Boolean",
                                         },
                                     },
                                 },

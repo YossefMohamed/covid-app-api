@@ -87,10 +87,44 @@ export const addToCustomDataset = asyncHandler(async (req: any, res: any, next: 
   }
 });
 
+export const verifySample = asyncHandler(async (req: any, res: any, next: any) => {
+  try {
+    if(req.user.isAdmin === false) throw new Error("You Are Not Authorized To Access This Page")
+    const sampleID = req.query.sampleID
+    const sample= await Sample.findOne({_id :sampleID });
+    if(!sample) throw new Error("Sample Not Found")
+    if(req.body.verified === "false")
+    {
+    await sample.remove()
+    }else{
+    sample.verified = true
+    }
+    res.status(200).json({
+      status: "ok",
+      data: sample,
+    });
+  } catch (error: any) {
+    next(new Error(error));
+  }
+}
+);
 export const getAllSamplesInCustomDataset = asyncHandler(async (req: any, res: any, next: any) => {
   try {
     if(req.user.isAdmin === false) throw new Error("You Are Not Authorized To Access This Page")
-    const samples = await Sample.find({tested : true });
+    const samples = await Sample.find({tested : true ,verified : true});
+    res.status(200).json({
+      status: "ok",
+      data: samples,
+    });
+  } catch (error: any) {
+    next(new Error(error));
+  }
+}
+);
+export const getUnvirfiedSamples = asyncHandler(async (req: any, res: any, next: any) => {
+  try {
+    if(req.user.isAdmin === false) throw new Error("You Are Not Authorized To Access This Page")
+    const samples = await Sample.find({tested : true ,verified : {$not : {$eq : true}}});
     res.status(200).json({
       status: "ok",
       data: samples,

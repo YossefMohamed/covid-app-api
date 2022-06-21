@@ -7,7 +7,8 @@ export interface SampleInterface extends Document {
   breathProblem: boolean;
   fever: boolean;
   tested: boolean;
-  report : string
+  report : string;
+  verified : boolean;
 }
 
 const sampleSchema: Schema<SampleInterface> =
@@ -34,6 +35,10 @@ const sampleSchema: Schema<SampleInterface> =
         type: String,
         default : ""
       },
+      verified : {
+        type : Boolean
+      }
+      ,
       user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
