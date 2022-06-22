@@ -51,6 +51,7 @@ const sampleSchema: Schema<SampleInterface> =
     }
   );
 
+  
 
 const Sample = mongoose.model<SampleInterface>("Sample", sampleSchema);
 export default Sample;

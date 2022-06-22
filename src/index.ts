@@ -63,7 +63,7 @@ app.get('/admin',async function(req, res) {
   const usersArray = await User.find()
   const samples = await Sample.find({tested : {$not :{$eq : true}}}).count()
   const samplesArray = await Sample.find()
-  const testedSamples = await Sample.find({tested : true}).count()
+  const testedSamples = await Sample.find({verified : true}).count()
   const negativeSamples = await Sample.find({tested : {$not :{$eq : true}} , covid : false}).count()
   const positiveSamples = await Sample.find({tested : {$not :{$eq : true}} , covid : true}).count()
   res.render('index' , {
@@ -77,13 +77,51 @@ app.get('/admin',async function(req, res) {
     usersArray
   });
 });
+// unverifiedSamples
 
+app.get('/admin/unverifiedsamples',async function(req, res) {
+  if(!req.cookies.token) return res.redirect('/admin/login');
+  const samples = await Sample.find({verified : {$not :{$eq : true}} , tested : true})
+  res.render('unverifiedSamples' , {
+    samples
+  });
+});
+
+// samplePage
+// /admin/unverifiedsamples/<%= samples[i]._id %>
+app.get('/admin/unverifiedsamples/:id',async function(req, res) {
+  if(!req.cookies.token) return res.redirect('/admin/login');
+  const sample = await Sample.findById(req.params.id)
+  if(!sample) return res.redirect('/admin/unverifiedsamples')
+  res.render('samplePage' , {
+    sample
+  });
+});
+
+
+
+app.post('/admin/verify',async function(req, res) {
+  if(!req.cookies.token) return res.redirect('/admin/login');
+  const sample = await Sample.findById(req.body.id)
+  if(!sample) return res.redirect('/admin/unverifiedsamples')
+
+  if(req.body.verify == 'true'){
+    sample.verified = true
+    await sample.save()
+  }else{
+    await sample.remove()
+  }
+
+  await sample.save()
+  res.redirect('/admin/unverifiedsamples')
+}
+)
 app.get('/admin/samples',async function(req, res) {
   if(!req.cookies.token) return res.redirect('/admin/login');
-  const samples = await Sample.find()
-  console.log(samples[0])
+  const predictedSamples = await Sample.find({ tested : {$not :{$eq : true}}})
+  const testedSamples = await Sample.find({verified : true})
   res.render('samples' , {
-    samples
+    samples : [...predictedSamples, ...testedSamples]
   });
 });
 
@@ -107,7 +145,6 @@ app.post('/admin/login',async function(req, res) {
   res.cookie("token" , token)
   res.redirect('/admin');
 });
-
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

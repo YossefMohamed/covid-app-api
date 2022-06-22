@@ -91,7 +91,7 @@ export const verifySample = asyncHandler(async (req: any, res: any, next: any) =
   try {
     if(req.user.isAdmin === false) throw new Error("You Are Not Authorized To Access This Page")
     const sampleID = req.query.sampleID
-    const sample= await Sample.findOne({_id :sampleID });
+    const sample= await Sample.findById(sampleID);
     if(!sample) throw new Error("Sample Not Found")
     if(req.body.verified === "false")
     {

@@ -70,82 +70,56 @@
             </nav>
 
             <!--content-->
-            <div class="content">
-                <div class="wrap">
-                    <div class="row">
-                       <h3 class="text-light">
-                           Number Of Total Samples is <%= samples.length %>
-                       </h3>
-                    </div>
-                </div>
+            <div class="content text-light ">
+                   
+                    <h4 class="my-4">Covid : 
+                        <% if( sample.covid){ %>
+                            <i class="text-danger"> Positive </i>
+                        <% }else{ %>
+                            <i class="text-success"> Negative </i>
+                        <% } %>
+                    </h4>
+
+                       
+
+                    <h4 class="my-4 d-flex align-items-center">
+                        Breath Problem : <%= sample.breathProblem %>
+                    </h4>
+                    <h4 class="my-4 d-flex align-items-center">
+                        Fever : <%= sample.fever %>
+                    </h4>
+                    <h3 class="d-flex align-middle">
+                        <span class="mr-3">
+                            Cough Record :
+                        </span>
+                        <audio controls>
+                            <source src="<%= sample.link %>" type="audio/mpeg">
+                        </audio>
+                    </h3>
+                    <h3 class="my-4">
+                        <span class="my-3">
+                            PCR Report :
+                        </span>
+                        <a href="<%= sample.report %>" class="btn btn-info mx-2" target="_blank">
+                            Sample Report
+                        </a>
+                    </h3>
+                    <form method="POST" action="/admin/verify">
+                        <input type="hidden" name="id" value="<%= sample.id %>">
+                        <h4 class="mb-3">
+                            verify:
+                        <select name="verify" id="cars">
+                            <option value="true">true</option>
+                            <option value="false">false</option>
+                          </select>
+                        </h4>
+                        <button class="btn btn-success">
+                            Verify Sample
+                        </button>
+                    
+                    </form>
                 <!--second row-->
-                <div class="row sec-row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <div class="child tableWrap" style="overflow-x: auto;">
-                            <h6>
-                                Users
-                            </h6>
-                            <table class="table" style="overflow-y:auto">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">
-                                            Tested
-                                        </th>
-                                        <th scope="col">
-                                            covid
-                                        </th>
-                                        <th scope="col">
-                                            breathProblem
-                                        </th>
-                                        <th scope="col">
-                                            fever
-                                        </th>
-                                        <th scope="col">
-                                            coughLink
-                                        </th>
-                                        <th scope="col">
-                                            Report
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                               
-                                    <% for(var i=0; i<samples.length; i++) {%>
-                                        <tr>
-                                            <td><%= samples[i].tested %></td>
-
-
-
-<% if(samples[i].covid){ %>
-                                                <td class="text-danger">Positive</td>
-                                                <% }else{ %>
-
-                                                    <td class="text-success">
-                                                   Negative
-</td>
-                                                    <% }  %>
-
-
-                                            <td><%= samples[i].breathProblem %></td>
-                                            <td><%= samples[i].fever %></td>
-                                            <td><a href="<%= samples[i].link %>" class="text-primary">Cough Link</a></td>
-                                            <% if(samples[i].report){ %>
-                                                <td><a href="<%= samples[i].report %>" class="text-primary">Cough report</a></td>
-                                                <% }else{ %>
-
-                                                    <td>
-                                                    Not Avaiable</td>
-                                                    <% }  %>
-
-                                        </tr>
-                                   
-                                     <% } %>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>

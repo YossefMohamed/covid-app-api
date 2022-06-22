@@ -36,7 +36,7 @@ router.post("/addtocustomdataset",upload.fields([{
   }]), addToCustomDataset);
 router.get("/dataset", getAllSamplesInCustomDataset);
 router.get("/verifysample", getUnvirfiedSamples);
-router.patch("/verifysample/:sampleID", verifySample);
+router.patch("/verifysample", verifySample);
 router.get("/", getSamples);
 router.get("/:id", getSample);
 router.delete("/:id", deleteSample);

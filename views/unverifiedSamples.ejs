@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+s<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -29,14 +29,14 @@
                         </a>
                     </li>
 
-                    <li class="active"> 
+                    <li > 
                         <a href="/admin/samples">
                             <span> <i class="las la-inbox"></i> Samples </span>
                         </a>
                     </li>
                    
                     
-                    <li> 
+                    <li class="active"> 
                         <a href="/admin/unverifiedsamples">
                             <span> <i class="las la-inbox"></i> Unverified Samples </span>
                         </a>
@@ -112,8 +112,9 @@
                                     
                                
                                     <% for(var i=0; i<samples.length; i++) {%>
-                                        <tr>
-                                            <td><%= samples[i].tested %></td>
+
+                                        <tr style="cursor: pointer;" onclick="window.location='/admin/unverifiedsamples/<%= samples[i]._id %>'">
+                                            <td><%= samples[i].tested %> g</td>
 
 
 
@@ -140,6 +141,7 @@
 
                                         </tr>
                                    
+
                                      <% } %>
                                 </tbody>
                             </table>
