@@ -861,6 +861,18 @@ const swaggerOptions = {
               },
             },
             {
+              in : "body",
+              name: "body",
+              description: "body",
+              schema: {
+                properties: {
+                  verified: {
+                    type: "boolean",
+                  },
+                },
+              },
+            },
+            {
               in: "header",
               name: "Authorization",
               type: "string",
