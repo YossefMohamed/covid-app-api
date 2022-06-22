@@ -68,7 +68,7 @@ app.get('/admin',async function(req, res) {
   const positiveSamples = await Sample.find({tested : {$not :{$eq : true}} , covid : true}).count()
   res.render('index' , {
     users : usersArray.length,
-    samples : samplesArray.length,
+    samples,
     testedSamples,
     totalSamples : testedSamples+samples,
     negativeSamples,
@@ -118,10 +118,12 @@ app.post('/admin/verify',async function(req, res) {
 )
 app.get('/admin/samples',async function(req, res) {
   if(!req.cookies.token) return res.redirect('/admin/login');
+
   const predictedSamples = await Sample.find({ tested : {$not :{$eq : true}}})
   const testedSamples = await Sample.find({verified : true})
   res.render('samples' , {
     samples : [...predictedSamples, ...testedSamples]
+
   });
 });
 
